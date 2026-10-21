@@ -106,7 +106,8 @@ def render(text: str, scale: int = 1, fill: str = "#") -> tuple[str, int]:
     # 逐行拼接：先算每一行，再把整行横向重复 scale 次、纵向重复 scale 次
     rows = ["" for _ in range(_ROW)]
     for char in normalized:
-        glyph = _GLYPHS.get(char)
+        # 归一化会把英文转小写，点阵表只有大写，所以退一步按大写再查一次
+        glyph = _GLYPHS.get(char) or _GLYPHS.get(char.upper())
         if glyph is None:
             glyph = _GLYPHS["?"]
             missing += 1
