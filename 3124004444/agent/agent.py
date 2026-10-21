@@ -176,6 +176,7 @@ class Agent:
             )
         if result.elapsed_ms == 0:
             result.elapsed_ms = int((time.perf_counter() - started) * 1000)
+        result.tool_name = call.name
         return result
 
     def _finish(

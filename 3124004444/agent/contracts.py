@@ -90,6 +90,8 @@ class ToolResult:
     artifacts: list[Artifact] = field(default_factory=list)
     elapsed_ms: int = 0
     via: str = "builtin"               # builtin | mcp —— 用来证明「真的走了 MCP」
+    #: 产生这个结果的工具名。由执行层填，大模型规划器需要它来拼 tool 消息。
+    tool_name: str = ""
 
     # ---- 构造快捷方式 ----
     @classmethod
@@ -111,6 +113,7 @@ class ToolResult:
             "artifacts": [a.to_dict() for a in self.artifacts],
             "elapsed_ms": self.elapsed_ms,
             "via": self.via,
+            "tool_name": self.tool_name,
         }
 
     def to_json(self) -> str:
@@ -127,6 +130,7 @@ class ToolResult:
             artifacts=[Artifact.from_dict(a) for a in payload.get("artifacts") or []],
             elapsed_ms=int(payload.get("elapsed_ms") or 0),
             via=str(payload.get("via", "builtin")),
+            tool_name=str(payload.get("tool_name", "")),
         )
 
     @classmethod

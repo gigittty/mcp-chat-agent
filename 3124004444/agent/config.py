@@ -114,3 +114,23 @@ def get_settings(refresh: bool = False) -> Settings:
     if _settings is None or refresh:
         _settings = load_settings()
     return _settings
+
+
+def use_settings(settings: Settings) -> Settings:
+    """把某份配置设为进程内生效的配置。
+
+    命令行/网页传进来的临时配置必须走到这里，否则工具侧通过
+    :func:`get_settings` 读到的还是旧的单例（曾因此让 --offline 不生效）。
+
+    离线开关额外写进环境变量：MCP 服务端是**子进程**，拿不到父进程的
+    Python 对象，只能靠环境变量传过去。
+    """
+    global _settings
+    _settings = settings
+    if settings.offline:
+        os.environ["AGENT_OFFLINE"] = "1"
+    else:
+        os.environ.pop("AGENT_OFFLINE", None)
+    if settings.max_steps:
+        os.environ.setdefault("MAX_STEPS", str(settings.max_steps))
+    return settings

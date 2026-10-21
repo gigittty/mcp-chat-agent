@@ -14,7 +14,7 @@ import traceback
 from pathlib import Path
 
 from agent import persona
-from agent.config import get_settings, load_settings
+from agent.config import load_settings, use_settings
 from agent.contracts import ToolCall
 from agent.mcp_host.channel import ToolChannel
 from agent.memory import Memory
@@ -68,6 +68,9 @@ def build_agent(args: argparse.Namespace):
         settings.offline = True
     if args.max_steps:
         settings.max_steps = args.max_steps
+
+    # 让工具侧与 MCP 子进程也能看到这些覆盖（尤其离线开关）
+    use_settings(settings)
 
     planner = None
     if settings.agent_mode == "llm":

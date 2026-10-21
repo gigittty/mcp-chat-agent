@@ -96,3 +96,38 @@ def quote_path(text: str) -> str:
     wttr.in 对未编码的中文会返回 404，必须做 percent-encoding。
     """
     return urllib.parse.quote(str(text), safe="")
+
+
+def post_json(
+    url: str,
+    payload: dict[str, Any],
+    *,
+    timeout: float = 60.0,
+    headers: dict[str, str] | None = None,
+) -> Any:
+    """POST JSON 并解析 JSON 响应。用于调用大模型的 chat/completions。
+
+    默认不重试：大模型调用失败重试可能重复计费，而且语义上「一次请求
+    一次结果」更符合预期。错误信息会带上响应体，方便定位 401/429。
+    """
+    if is_offline():
+        raise NetworkError("当前处于离线模式，无法调用在线大模型")
+
+    merged = {"User-Agent": DEFAULT_UA, "Content-Type": "application/json", "Accept": "application/json"}
+    if headers:
+        merged.update(headers)
+
+    body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    request = urllib.request.Request(url, data=body, headers=merged, method="POST")
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return json.loads(response.read().decode("utf-8", errors="replace"))
+    except urllib.error.HTTPError as exc:
+        detail = ""
+        try:
+            detail = exc.read().decode("utf-8", errors="replace")[:400]
+        except Exception:  # noqa: BLE001
+            pass
+        raise NetworkError(f"HTTP {exc.code}：{detail or exc.reason}") from exc
+    except Exception as exc:  # noqa: BLE001
+        raise NetworkError(f"请求失败：{type(exc).__name__}: {exc}") from exc
