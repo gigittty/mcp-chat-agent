@@ -82,7 +82,11 @@ def main() -> int:
     IMAGES_DIR.mkdir(parents=True, exist_ok=True)
     if not args.keep_images:
         for stale in IMAGES_DIR.glob("demo_*.png"):
-            stale.unlink()
+            try:
+                stale.unlink()
+            except OSError:
+                # 文件被占用/无权限时不要中断整场演示，后面覆盖写即可
+                print(f"（跳过清理 {stale.name}）")
 
     channel = ToolChannel(settings.mcp_channel)
     agent = Agent(
