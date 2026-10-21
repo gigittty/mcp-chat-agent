@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from mcp.server import MCPServer
 
+from agent.registry import get_registry
 from mcp_server import wrappers
 
 INSTRUCTIONS = (
@@ -30,8 +31,15 @@ def build_server() -> MCPServer:
         version="0.1.0",
         instructions=INSTRUCTIONS,
     )
+    # 显式传 title：否则 MCP 侧只会暴露函数名，界面上会显示 make_meme
+    # 而不是「生成梗图」，与内置通道的观感不一致。
+    registry = get_registry()
     for function in wrappers.ALL:
-        server.tool()(function)
+        spec = registry.get(function.__name__)
+        if spec is None:
+            server.tool()(function)
+        else:
+            server.tool(title=spec.title)(function)
     return server
 
 

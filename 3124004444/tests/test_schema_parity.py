@@ -150,6 +150,8 @@ def test_服务端_tools_list_与注册表一致(specs: dict) -> None:
     for name, spec in specs.items():
         tool = tools[name]
         assert tool.description.strip() == spec.description.strip(), f"{name}: 描述不一致"
+        # 中文标题也要传过去，否则 MCP 通道下界面会退化成显示函数名
+        assert tool.title == spec.title, f"{name}: 标题不一致（MCP={tool.title!r}）"
         properties = tool.input_schema.get("properties", {})
         assert set(properties) == set(spec.properties()), f"{name}: 参数集合不一致"
         for param, prop in spec.properties().items():

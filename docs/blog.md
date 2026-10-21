@@ -603,7 +603,7 @@ streamlit run agent/ui/web_app.py       # 网页端
 
 ### 5.4 提交历史
 
-按功能拆成 12 次提交，每次都保证 `pytest` 全绿、代码可运行：
+按功能拆成 13 次提交，每次都保证 `pytest` 全绿、代码可运行：
 
 ```
 chore: 初始化仓库结构与依赖清单
@@ -618,6 +618,7 @@ feat(agent): ReAct 主循环、MCP Host 与降级通道，提供 CLI 聊天
 feat(ui): Streamlit 网页端与大模型模式零改码切换
 docs: 说明文档、博文、分工与成员心得
 refactor: 智能体更名为 Milk Dragon
+fix(mcp): 服务端显式传递中文标题
 ```
 
 增量可运行的关键手法：`registry.TOOL_MODULES` 是一个**随提交增长**的列表，没实现的工具不会被 import，所以任何一次提交的代码树都能跑。
