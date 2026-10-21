@@ -24,7 +24,10 @@ from agent.contracts import ToolResult, ToolSpec
 from agent.errors import ToolError
 
 #: 已实现的工具模块（相对 agent.tools）。新增工具时在末尾追加。
-TOOL_MODULES: list[str] = []
+TOOL_MODULES: list[str] = [
+    "calc",
+    "fun_pick",
+]
 
 _NAME_RE = re.compile(r"^[a-z][a-z0-9_]{1,40}$")
 
