@@ -189,6 +189,16 @@ def _options(text: str) -> list[str]:
     return []
 
 
+def _city_from_last(ctx: PlanContext) -> str:
+    """从历史结果里找城市名，让图表标题更具体（「上海气温趋势」）。"""
+    for observation in reversed(ctx.observations):
+        if observation.ok and observation.data.get("city"):
+            return str(observation.data["city"])
+    if ctx.previous is not None and ctx.previous.ok and ctx.previous.data.get("city"):
+        return str(ctx.previous.data["city"])
+    return str(ctx.prefs.get("city") or "")
+
+
 def _last_text(ctx: PlanContext) -> str | None:
     """取「刚才的结果」的文本，供「存成文件」用。"""
     for observation in reversed(ctx.observations):
@@ -285,7 +295,9 @@ def slots_make_chart(text: str, ctx: PlanContext) -> tuple[dict, list[str]]:
 
     series = _series_from_last(ctx)
     if series:
-        args.setdefault("title", f"{ctx.prefs.get('last_city', '')}气温趋势".strip() or "气温趋势")
+        if not args.get("title"):
+            city = _city_from_last(ctx)
+            args["title"] = f"{city}气温趋势" if city else "气温趋势"
         args["labels"] = [str(item) for item in series["date"]]
         args["values"] = [_as_float(item) for item in series["temp_max"]]
         args["ylabel"] = "摄氏度"
