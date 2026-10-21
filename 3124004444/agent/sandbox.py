@@ -51,6 +51,25 @@ def ensure_dirs() -> None:
         path.mkdir(parents=True, exist_ok=True)
 
 
+def output_path(prefix: str, suffix: str = ".png") -> Path:
+    """在 data/out 下生成一个不重名的输出路径。
+
+    用「时间戳 + 递增序号」而不是随机名，方便人肉按时间找文件。
+    """
+    from datetime import datetime
+
+    root = out_root()
+    root.mkdir(parents=True, exist_ok=True)
+    safe_prefix = "".join(ch for ch in prefix if ch.isalnum() or ch in "_-") or "out"
+    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    candidate = root / f"{safe_prefix}_{stamp}{suffix}"
+    index = 1
+    while candidate.exists():
+        candidate = root / f"{safe_prefix}_{stamp}_{index}{suffix}"
+        index += 1
+    return candidate
+
+
 def _validate_component(part: str) -> str:
     if not part:
         raise SandboxViolation("路径里有空的文件名片段")

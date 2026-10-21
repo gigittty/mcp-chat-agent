@@ -29,6 +29,9 @@ TOOL_MODULES: list[str] = [
     "fun_pick",
     "weather",
     "todo",
+    "chart",
+    "meme",
+    "ascii_art",
 ]
 
 _NAME_RE = re.compile(r"^[a-z][a-z0-9_]{1,40}$")
