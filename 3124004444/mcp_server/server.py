@@ -16,7 +16,7 @@ from mcp.server import MCPServer
 from mcp_server import wrappers
 
 INSTRUCTIONS = (
-    "团子龙是一个会说也会做的中文聊天助手。"
+    "Milk Dragon 是一个会说也会做的中文聊天助手。"
     "它可以把用户指令转成真实的工具调用：计算数学、查询天气、生成图表与梗图、"
     "管理待办清单、在沙箱目录里读写文件、做随机决策。"
     "每次工具调用返回 JSON，字段包含 ok / text / data / artifacts。"
@@ -26,7 +26,7 @@ INSTRUCTIONS = (
 def build_server() -> MCPServer:
     """构建并返回已注册全部工具的 MCP 服务端实例。"""
     server = MCPServer(
-        "tuanzilong-agent",
+        "milk-dragon-agent",
         version="0.1.0",
         instructions=INSTRUCTIONS,
     )

@@ -1,4 +1,4 @@
-"""团子龙的人格与台词。
+"""Milk Dragon 的人格与台词。
 
 把「说话风格」集中在一个文件里，好处是：
 - 想改语气只改这里，不用翻遍工具实现
@@ -14,7 +14,7 @@ from __future__ import annotations
 import hashlib
 from typing import Sequence
 
-NAME = "团子龙"
+NAME = "Milk Dragon"
 SELF = "本龙"
 
 _GREETINGS = (

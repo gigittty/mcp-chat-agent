@@ -188,7 +188,7 @@ MEME_STYLES: dict[str, str] = {
     "梗图": "impact", "表情包": "impact", "大字": "impact",
     "便签": "note", "便条": "note", "纸条": "note",
     "海报": "poster", "宣传": "poster",
-    "恐龙": "dragon", "团子龙": "dragon", "小恐龙": "dragon",
+    "恐龙": "dragon", "milk dragon": "dragon", "小恐龙": "dragon",
 }
 
 #: 文件扩展名白名单（与 sandbox 保持一致，用于给未写扩展名的路径补全）

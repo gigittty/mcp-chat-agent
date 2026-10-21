@@ -1,4 +1,4 @@
-"""团子龙聊天智能体 —— 包入口。
+"""Milk Dragon 聊天智能体 —— 包入口。
 
 代码根目录常量集中在这里定义，其余模块统一 import：
     from agent import CODE_ROOT, DATA_DIR

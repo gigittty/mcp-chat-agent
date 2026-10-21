@@ -225,7 +225,7 @@ def check_mcp() -> None:
 
 def main() -> int:
     print("=" * 62)
-    print(" 团子龙聊天智能体 —— 环境自检")
+    print(" Milk Dragon 聊天智能体 —— 环境自检")
     print("=" * 62)
     check_python()
     check_packages()

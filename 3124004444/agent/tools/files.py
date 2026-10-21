@@ -161,5 +161,5 @@ def run(args: dict) -> ToolResult:
 
 
 if __name__ == "__main__":
-    print(run({"action": "write", "path": "demo.md", "content": "# 你好\n这是团子龙写的。"}).text)
+    print(run({"action": "write", "path": "demo.md", "content": "# 你好\n这是 Milk Dragon 写的。"}).text)
     print(run({"action": "list"}).text)

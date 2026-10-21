@@ -79,7 +79,7 @@ CASES: list[tuple[str, str | None, dict[str, Any]]] = [
     # ---------------- 梗图 ----------------
     ("画个梗图：周五了", "make_meme", {"style": "impact", "text": "周五了"}),
     ("做个表情包「今天不想上班」", "make_meme", {"text": _contains("今天不想上班")}),
-    ("做张海报：团子龙新品发布", "make_meme", {"style": "poster"}),
+    ("做张海报：Milk Dragon 新品发布", "make_meme", {"style": "poster"}),
     ("来一张恐龙海报", "make_meme", {"style": "dragon"}),
     # ---------------- ASCII ----------------
     ("把 HI 转成字符画", "make_ascii_art", {"text": _contains("hi")}),

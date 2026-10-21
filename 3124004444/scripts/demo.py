@@ -98,7 +98,7 @@ def main() -> int:
     )
 
     sections: list[str] = [
-        "# 团子龙演示记录",
+        "# Milk Dragon 演示记录",
         "",
         f"- 生成时间：{time.strftime('%Y-%m-%d %H:%M:%S')}",
         f"- 规划器：{settings.mode_label}",

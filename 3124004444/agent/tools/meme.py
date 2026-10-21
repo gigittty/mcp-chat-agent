@@ -247,7 +247,7 @@ def _style_note(canvas: Image.Image, text: str, subtext: str, palette: str) -> N
         sub_font = pillow_font(32, bold=False)
         draw.text((78, y + 20), subtext, font=sub_font, fill=(140, 128, 108))
 
-    draw.text((WIDTH - 150, HEIGHT - 70), "—— 团子龙", font=pillow_font(26, bold=False), fill=(170, 158, 138))
+    draw.text((WIDTH - 150, HEIGHT - 70), "—— Milk Dragon", font=pillow_font(26, bold=False), fill=(170, 158, 138))
     canvas.paste(paper, (0, 0))
 
 

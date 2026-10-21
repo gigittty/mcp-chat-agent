@@ -31,7 +31,7 @@ from agent.contracts import ToolCall               # noqa: E402
 from agent.mcp_host.channel import ToolChannel     # noqa: E402
 from agent.memory import Memory                    # noqa: E402
 
-st.set_page_config(page_title="团子龙 · 聊天智能体", page_icon="🐉", layout="wide")
+st.set_page_config(page_title="Milk Dragon · 聊天智能体", page_icon="🐉", layout="wide")
 
 CSS = """
 <style>
@@ -129,7 +129,7 @@ def render_artifacts(artifacts) -> None:
 
 
 def main() -> None:
-    st.title("🐉 团子龙 · 会说也会做的聊天智能体")
+    st.title("🐉 Milk Dragon · 会说也会做的聊天智能体")
     st.caption("自然语言对话 → 意图识别 → 真实工具调用 → 结果回填。试试「帮我查上海未来三天天气，然后画成柱状图」")
 
     with st.sidebar:
@@ -191,7 +191,7 @@ def main() -> None:
             if message.get("artifacts"):
                 render_artifacts(message["artifacts"])
 
-    prompt = st.chat_input("跟团子龙说点什么…")
+    prompt = st.chat_input("跟 Milk Dragon 说点什么…")
     if not prompt:
         return
 
@@ -201,7 +201,7 @@ def main() -> None:
 
     agent = get_agent(mode, channel, offline, max_steps)
     with st.chat_message("assistant"):
-        with st.status("团子龙正在处理…", expanded=True) as status:
+        with st.status("Milk Dragon 正在处理…", expanded=True) as status:
             agent.observer = StreamlitObserver(status)
             try:
                 result = agent.chat(prompt)

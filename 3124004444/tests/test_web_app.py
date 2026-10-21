@@ -28,7 +28,7 @@ def app() -> AppTest:
 def test_页面能正常渲染(app: AppTest) -> None:
     assert not app.exception
     assert app.title
-    assert "团子龙" in app.title[0].value
+    assert "Milk Dragon" in app.title[0].value
 
 
 def test_侧栏有模式与通道选择(app: AppTest) -> None:

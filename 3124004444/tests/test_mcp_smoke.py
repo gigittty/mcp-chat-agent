@@ -59,7 +59,7 @@ def test_握手并列出工具() -> None:
         "make_chart", "make_meme", "make_ascii_art", "files",
     }
     assert elapsed < HANDSHAKE_BUDGET
-    assert info is not None and info.name == "tuanzilong-agent"
+    assert info is not None and info.name == "milk-dragon-agent"
 
 
 def test_通过协议调用工具() -> None:

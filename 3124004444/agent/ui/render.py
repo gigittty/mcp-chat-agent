@@ -78,10 +78,27 @@ def write(text: str = "") -> None:
         sys.stdout.flush()
 
 
+def _display_width(text: str) -> int:
+    """终端显示宽度：中日韩字符占两列，其余占一列。
+
+    名字从中文换成英文后，原来的固定边框就对不齐了，所以改成按宽度算。
+    """
+    import unicodedata
+
+    width = 0
+    for char in text:
+        width += 2 if unicodedata.east_asian_width(char) in ("W", "F") else 1
+    return width
+
+
 def banner(mode_label: str, channel_label: str, tool_count: int) -> None:
-    write(paint("╭──────────────────────────────────────────────╮", Style.MAGENTA))
-    write(paint("│", Style.MAGENTA) + paint("  团子龙 · 会说也会做的聊天智能体 v0.1  ", Style.BOLD) + paint("│", Style.MAGENTA))
-    write(paint("╰──────────────────────────────────────────────╯", Style.MAGENTA))
+    title = "Milk Dragon · 会说也会做的聊天智能体 v0.1"
+    padding = max(2, (48 - _display_width(title)) // 2)
+    inner = " " * padding + title
+    inner += " " * max(0, 48 - _display_width(inner))
+    write(paint("╭" + "─" * 48 + "╮", Style.MAGENTA))
+    write(paint("│", Style.MAGENTA) + paint(inner, Style.BOLD) + paint("│", Style.MAGENTA))
+    write(paint("╰" + "─" * 48 + "╯", Style.MAGENTA))
     write(paint(f"  模式：{mode_label}", Style.DIM))
     write(paint(f"  通道：{channel_label}　工具：{tool_count} 个", Style.DIM))
     write(paint("  输入 /help 看用法，/tools 看工具，/exit 退出", Style.DIM))
@@ -123,7 +140,7 @@ def reply(text: str) -> None:
     write()
     lines = text.splitlines() or [""]
     for index, line in enumerate(lines):
-        prefix = paint("团子龙 ❯ ", Style.MAGENTA) if index == 0 else " " * 8
+        prefix = paint("Milk Dragon ❯ ", Style.MAGENTA) if index == 0 else " " * 8
         write(prefix + line)
     write()
 

@@ -148,7 +148,7 @@ def repl(agent, settings) -> int:
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="agent.ui.cli",
-        description="团子龙 —— 会说也会做的聊天智能体",
+        description="Milk Dragon —— 会说也会做的聊天智能体",
     )
     parser.add_argument("-c", "--command", help="只执行一条指令后退出")
     parser.add_argument("--demo", action="store_true", help="依次执行内置演示指令")
