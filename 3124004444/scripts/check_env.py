@@ -189,6 +189,40 @@ def check_tools() -> None:
     print(f"  共 {len(specs)} 个工具")
 
 
+def check_mcp() -> None:
+    line("MCP 协议（工具是否能通过标准协议暴露）")
+    try:
+        import mcp
+    except Exception as exc:  # noqa: BLE001
+        print(f"  {WARN} 未安装 mcp（{type(exc).__name__}），只能走内置通道")
+        return
+
+    from importlib.metadata import version as dist_version
+
+    print(f"  {OK} SDK 版本   {dist_version('mcp')}")
+
+    try:
+        import asyncio
+
+        from mcp_server.server import server
+
+        async def handshake():
+            async with mcp.Client(server) as client:
+                listed = await client.list_tools()
+                return listed, client.protocol_version
+
+        listed, protocol = asyncio.run(handshake())
+    except Exception as exc:  # noqa: BLE001
+        print(f"  {NO} 握手失败：{type(exc).__name__}: {exc}")
+        print("         排查：确认 mcp 是 2.x（pip install -U 'mcp>=2.3'）")
+        return
+
+    print(f"  {OK} 协议版本   {protocol}")
+    print(f"  {OK} 握手成功   暴露 {len(listed.tools)} 个工具")
+    names = ", ".join(tool.name for tool in listed.tools)
+    print(f"         工具列表   {names}")
+
+
 def main() -> int:
     print("=" * 62)
     print(" 团子龙聊天智能体 —— 环境自检")
@@ -199,6 +233,7 @@ def main() -> int:
     check_network()
     check_config()
     check_tools()
+    check_mcp()
     print("\n" + "=" * 62)
     print(" 自检结束。若 mcp 显示 1.x，请执行：pip install -U 'mcp>=2.3'")
     print("=" * 62)
