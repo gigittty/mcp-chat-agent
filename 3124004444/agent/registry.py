@@ -27,6 +27,8 @@ from agent.errors import ToolError
 TOOL_MODULES: list[str] = [
     "calc",
     "fun_pick",
+    "weather",
+    "todo",
 ]
 
 _NAME_RE = re.compile(r"^[a-z][a-z0-9_]{1,40}$")
