@@ -1,0 +1,4 @@
+# Web 界面额外依赖
+# 安装：pip install -r requirements-web.txt
+-r requirements.txt
+streamlit>=1.30

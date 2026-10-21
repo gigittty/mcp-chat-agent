@@ -1,0 +1,12 @@
+# 依赖清单（核心：能跑智能体 + 生成图片）
+# 安装：pip install -r requirements.txt
+#
+# mcp 精确锁版本 —— 2.x 与 1.x API 不兼容（FastMCP 已改名为 MCPServer），
+# 不锁版本会在不同机器上出现 ImportError。
+mcp==2.3.0
+
+# 生成图片
+pillow>=10.1
+matplotlib>=3.8
+
+# 说明：天气/网页请求用的是标准库 urllib，不需要 requests
