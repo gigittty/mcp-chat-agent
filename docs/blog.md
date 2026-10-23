@@ -1,7 +1,7 @@
 # 从一句「帮我查上海天气然后画成柱状图」出发：用 MCP 搭一个会说也会做的聊天智能体
 
 > 《AI 智能体》课程作业 · 小组项目 **mcp-chat-agent**
-> 仓库：https://github.com/<你的GitHub用户名>/mcp-chat-agent
+> 仓库：https://github.com/gigittty/mcp-chat-agent
 
 ## 写在前面
 
@@ -567,7 +567,7 @@ $ streamlit run agent/ui/web_app.py
 
 ## 五、GitHub 仓库
 
-**仓库地址**：https://github.com/<你的GitHub用户名>/mcp-chat-agent
+**仓库地址**：https://github.com/gigittty/mcp-chat-agent
 
 ### 5.1 目录结构
 
@@ -603,7 +603,7 @@ streamlit run agent/ui/web_app.py       # 网页端
 
 ### 5.4 提交历史
 
-按功能拆成 13 次提交，每次都保证 `pytest` 全绿、代码可运行：
+按功能拆成 14 次提交，每次都保证 `pytest` 全绿、代码可运行：
 
 ```
 chore: 初始化仓库结构与依赖清单
@@ -619,6 +619,7 @@ feat(ui): Streamlit 网页端与大模型模式零改码切换
 docs: 说明文档、博文、分工与成员心得
 refactor: 智能体更名为 Milk Dragon
 fix(mcp): 服务端显式传递中文标题
+docs: 五人分工与成员心得
 ```
 
 增量可运行的关键手法：`registry.TOOL_MODULES` 是一个**随提交增长**的列表，没实现的工具不会被 import，所以任何一次提交的代码树都能跑。
@@ -644,12 +645,15 @@ $ pytest -q
 
 ## 六、小组分工
 
+5 人小组，代码由一人统一提交以保证历史整洁；下表是**模块归属**，与 `git log` 的提交号一一对应。
+
 | 成员 | 角色 | 负责模块 | 对应提交 |
 |---|---|---|---|
-| A | 架构与内核 | `contracts` / `registry` / `agent` / `runtime` | 1, 2, 9 |
-| B | 工具与生图 | 8 个工具 + `fonts` + `sandbox` | 3, 4, 5, 6 |
-| C | MCP 与集成 | `mcp_server` / `mcp_host` / 测试 | 2, 7 |
-| D | 界面与文档 | `cli` / `render` / `web_app` / docs | 10, 11 |
+| 谢嘉鸿 | 架构与内核 | `contracts` / `registry` / `agent` / `runtime` / `memory` | 1, 2, 9 |
+| 吴俊达 | 工具与数据安全 | `calc` / `weather` / `todo` / `files` / `fun_pick` + `sandbox` / `net` | 3, 4, 6 |
+| 林炳辉 | MCP 与集成 | `mcp_server` / `mcp_host` / 协议测试 | 2, 7, 13 |
+| 张志远 | 规划器与界面 | `planner` / `ui` / `llm` / `persona` | 8, 10, 12 |
+| 黄国轩 | 可视化与文档 | `chart` / `meme` / `ascii_art` / `fonts` + `docs` | 5, 11 |
 
 详见 [小组分工.md](小组分工.md)。
 
